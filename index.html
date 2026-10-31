@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <time datetime="Todo Application
+    "></time>
+</head>
+
+<body>
+    <h1 class="text-3xl font-bold text-center">
+        My todo Application
+    </h1>
+    <div class="flex item-center justify-center
+    mt-5 gap-1">
+        <input id="taskinput" class="border border-gray rounded-lg outline-none px-4 py-1" type="text"
+            placeholder="Enter your task">
+        <button id="addbtn" class="border px-2 py-1 rounded-lg bg-black text-white  ">
+            Add
+        </button>
+    </div>
+
+
+
+    <!-- todolist -->
+    <ul id="totoList">
+
+    </ul>
+
+
+
+
+
+
+
+    <!-- script start -->
+    <script>
+        const taskInput = document.getElementById("taskinput")
+        const addbtn = document.getElementById("addbtn")
+        const todoList = document.getElementById("totoList")
+
+        let todos = []
+
+        function renderTodos() {
+            todoList.innerHTML = ""
+
+            todos.forEach((todo) => {
+                todoList.innerHTML += `
+            <li>
+                <div> 
+                  <input type ="checkbox" 
+                  if{todo.completed ? "checcked" :""}
+                  />  
+                   <span> 
+                    ${todo.title}
+                   </span>  
+                </div>
+            </li>
+            `
+            })
+
+        }
+
+        addbtn.addEventListener("click", () => {
+            const task = taskInput.value
+            todos.push({
+                title: task,
+                completed: false
+            })
+            console.log(todos)
+            localStorage.setItem("todos", JSON.stringify(todos))
+            renderTodos()
+        })
+
+
+        const savedTodos = localStorage.getItem("todos")
+
+        // console.log("get todos from ls",savedTodos)
+        if (savedTodos) {
+            todos = JSON.parse(savedTodos)
+        }
+        console.log(todos)
+
+
+
+        renderTodos()
+    </script>
+
+    <!-- script End-->
+
+</body>
+
+</html>
